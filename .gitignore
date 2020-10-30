@@ -1,4 +1,5 @@
 node_modules
-package-lock.js
-server/config/certs
+package-lock.json
 .env
+server/config/certs
+client/dist
