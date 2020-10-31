@@ -5,6 +5,7 @@ const Home = () => {
   return (
     <React.Fragment>
       <h1>Hello, {isAuthenticated ? user.username : 'Guest'}</h1>
+      {isAuthenticated ? <h3>Created account at: {user.createdAt}</h3> : ''}
     </React.Fragment>
   );
 };
