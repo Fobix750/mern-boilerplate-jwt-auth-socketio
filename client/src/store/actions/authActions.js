@@ -19,10 +19,10 @@ export const loginUser = (formData, history) => async (dispatch) => {
         payload: res.data.error
       });
     }
-    dispatch(attachToken(res.data.token));
     localStorage.setItem('token', res.data.token);
-    dispatch(setUser(res.data.me));
     history.push('/');
+    attachToken(res.data.token);
+    dispatch(setUser(res.data.me));
   } catch (err) {
     console.log(err);
     dispatch({
@@ -36,13 +36,13 @@ export const loginUser = (formData, history) => async (dispatch) => {
 export const checkAuth = () => async (dispatch) => {
   if (localStorage.token) {
     const token = localStorage.token;
-    dispatch(attachToken(token));
+    attachToken(token);
     try {
       const res = await axios({
         method: 'post',
         url: `http://localhost:8080/auth/checkAuth`
       });
-      if (res.data.user) dispatch(setUser(res.data.user));
+      if (res.data.me) dispatch(setUser(res.data.me));
     } catch (err) {
       console.log(err);
       dispatch(logoutUser());
@@ -59,7 +59,7 @@ export const setUser = (payload) => {
 };
 
 // Logout User
-export const logoutUser = () => {
+export const logoutUser = () => async (dispatch) => {
   localStorage.removeItem('token');
   dispatch(setUser());
   attachToken(false);

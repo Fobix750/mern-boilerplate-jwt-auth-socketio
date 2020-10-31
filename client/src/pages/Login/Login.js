@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import axios from 'axios';
 
+import history from '../../history';
 import { loginSchema } from './validation';
 import { loginUser } from '../../store/actions/authActions';
 
