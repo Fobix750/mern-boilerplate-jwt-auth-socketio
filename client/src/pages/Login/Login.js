@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, withRouter, Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { Formik } from 'formik';

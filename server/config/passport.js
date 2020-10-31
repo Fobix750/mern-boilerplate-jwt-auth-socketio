@@ -19,7 +19,6 @@ const strategy = new JwtStrategy(
       const user = await User.findOne({ name: payload.sub });
 
       if (user) {
-        console.log('User found' + user);
         done(null, user);
       } else {
         console.log('User not found');

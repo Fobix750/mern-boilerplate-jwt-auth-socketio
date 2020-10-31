@@ -1,29 +1,17 @@
 import React, { Component } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import axios from 'axios';
 
 import { registerSchema } from './validation';
+import { registerUser } from '../../store/actions/authActions';
 import history from '../../history';
 
 function Register({ auth, registerUser }) {
+  if (auth.isAuthenticated) return <Redirect to="/" />;
   const handleRegister = async (formData) => {
-    try {
-      const res = await axios({
-        method: 'post',
-        url: `http://localhost:8080/auth/register`,
-        data: {
-          username: formData.username,
-          password: formData.password,
-          email: formData.email
-        }
-      });
-      if (res.data.error) return alert(res.data.error);
-      alert(res.data.message);
-      history.push('/login');
-    } catch (err) {
-      return console.log(err);
-    }
+    registerUser(formData, history);
   };
   return (
     <React.Fragment>
@@ -110,5 +98,12 @@ function Register({ auth, registerUser }) {
     </React.Fragment>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+    user: state.user
+  };
+};
 
 export default connect(mapStateToProps, { registerUser })(Register);

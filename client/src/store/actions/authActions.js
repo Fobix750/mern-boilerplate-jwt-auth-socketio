@@ -2,6 +2,28 @@ import axios from 'axios';
 
 import { SET_CURRENT_USER, GET_ERRORS } from '../types';
 
+//Register User
+export const registerUser = (formData, history) => async (dispatch) => {
+  try {
+    const res = await axios({
+      method: 'post',
+      url: `http://localhost:8080/auth/register`,
+      data: {
+        username: formData.username,
+        password: formData.password,
+        email: formData.email
+      }
+    });
+    if (res.data.error) return alert(res.data.error);
+    history.push('/login');
+  } catch (err) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: err
+    });
+  }
+};
+
 // Login User
 export const loginUser = (formData, history) => async (dispatch) => {
   try {
