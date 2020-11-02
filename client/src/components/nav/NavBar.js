@@ -1,38 +1,63 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './navbar.css';
 
 function NavBar() {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   return (
-    <ul id="nav-bar">
-      <Link to="/">
-        <li className="menu-item">Home</li>
-      </Link>
-      <Link to="/profiles">
-        <li className="menu-item">Profiles</li>
-      </Link>
+    <nav className="nav-bar">
+      <NavLink
+        className="nav-item"
+        activeClassName="activated-link"
+        exact
+        to="/"
+      >
+        Home
+      </NavLink>
+      <NavLink
+        className="nav-item"
+        activeClassName="activated-link"
+        to="/profiles"
+      >
+        Profiles
+      </NavLink>
       {!isAuthenticated ? (
         <React.Fragment>
-          <Link to="/register">
-            <li className="menu-item">Register</li>
-          </Link>
-          <Link to="/login">
-            <li className="menu-item">Login</li>
-          </Link>
+          <NavLink
+            className="nav-item"
+            activeClassName="activated-link"
+            to="/register"
+          >
+            Register
+          </NavLink>
+          <NavLink
+            className="nav-item"
+            activeClassName="activated-link"
+            to="/login"
+          >
+            Login
+          </NavLink>
         </React.Fragment>
       ) : (
         <React.Fragment>
-          <Link to="/profile">
-            <li className="menu-item">Profile</li>
-          </Link>
-          <Link to="/logout">
-            <li className="menu-item">Logout</li>
-          </Link>
+          <NavLink
+            className="nav-item"
+            activeClassName="activated-link"
+            to="/profile"
+          >
+            Profile
+          </NavLink>
+          <NavLink
+            className="nav-item"
+            activeClassName="activated-link"
+            to="/logout"
+          >
+            Logout
+          </NavLink>
         </React.Fragment>
       )}
-    </ul>
+    </nav>
   );
 }
 
