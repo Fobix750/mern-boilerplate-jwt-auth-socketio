@@ -40,6 +40,7 @@ export const loginUser = (formData, history) => async (dispatch) => {
         type: GET_ERRORS,
         payload: res.data.error
       });
+      return;
     }
     localStorage.setItem('token', res.data.token);
     history.push('/');
@@ -49,7 +50,7 @@ export const loginUser = (formData, history) => async (dispatch) => {
     console.log(err);
     dispatch({
       type: GET_ERRORS,
-      payload: err
+      payload: 'Login Failed'
     });
   }
 };
