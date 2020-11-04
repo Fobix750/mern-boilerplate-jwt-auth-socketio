@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 // Define Schemas
 const userSchema = new mongoose.Schema({
@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     required: true,
-    default: 'user'
+    default: "user"
   }
 });
 
@@ -41,9 +41,9 @@ userSchema.methods.comparePasswords = async function (pwToCompare, cb) {
   });
 };
 
-const mode = process.env.NODE_ENV || 'production';
+const mode = process.env.NODE_ENV || "production";
 const secretOrKey =
-  mode === 'production' ? process.env.JWT_KEY_PROD : process.env.JWT_KEY_DEV;
+  mode === "production" ? process.env.JWT_KEY_PROD : process.env.JWT_KEY_DEV;
 
 userSchema.methods.generateJWT = function () {
   return jwt.sign({ id: this._id, email: this.email }, secretOrKey, {
@@ -52,7 +52,7 @@ userSchema.methods.generateJWT = function () {
 };
 
 const User = mongoose.model(
-  'User',
+  "User",
   new mongoose.Schema(userSchema, { timestamps: true })
 );
 

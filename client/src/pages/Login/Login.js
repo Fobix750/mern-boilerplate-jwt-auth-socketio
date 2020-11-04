@@ -39,6 +39,7 @@ function Login({ auth, loginUser }) {
           return (
             <form onSubmit={handleSubmit}>
               <input
+                className={errors.username && touched.username && 'error'}
                 name="username"
                 onChange={handleChange}
                 type="text"
@@ -51,6 +52,7 @@ function Login({ auth, loginUser }) {
               />
               {errors.username && touched.username && <b>{errors.username}</b>}
               <input
+                className={errors.password && touched.password && 'error'}
                 name="password"
                 onChange={handleChange}
                 autoComplete="current-password"

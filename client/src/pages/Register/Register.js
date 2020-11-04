@@ -40,6 +40,7 @@ function Register({ auth, registerUser }) {
           return (
             <form onSubmit={handleSubmit}>
               <input
+                className={errors.username && touched.username && 'error'}
                 name="username"
                 onChange={handleChange}
                 type="text"
@@ -52,6 +53,7 @@ function Register({ auth, registerUser }) {
               {errors.username && touched.username && <b>{errors.username}</b>}
 
               <input
+                className={errors.email && touched.email && 'error'}
                 name="email"
                 onChange={handleChange}
                 type="text"
@@ -63,6 +65,7 @@ function Register({ auth, registerUser }) {
               />
               {errors.email && touched.email && <b>{errors.email}</b>}
               <input
+                className={errors.password && touched.password && 'error'}
                 name="password"
                 onChange={handleChange}
                 type="password"
@@ -73,6 +76,9 @@ function Register({ auth, registerUser }) {
               />
               {errors.password && touched.password && <b>{errors.password}</b>}
               <input
+                className={
+                  errors.passwordConfirm && touched.passwordConfirm && 'error'
+                }
                 name="passwordConfirm"
                 onChange={handleChange}
                 type="password"
