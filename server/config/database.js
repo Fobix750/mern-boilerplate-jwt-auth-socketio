@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const config = require("./config");
+const mongoose = require('mongoose');
+const config = require('./config');
 const isDev = config.isDev;
 
 const connect = async () => {
@@ -13,9 +13,9 @@ const connect = async () => {
       }
     );
 
-    console.log("Successfully established MongoDB connection.");
+    console.log('Successfully established MongoDB connection.');
   } catch (err) {
-    console.error("MongoDB error:" + err.message);
+    console.error('MongoDB error:' + err.message);
     process.exit(1);
   }
 };

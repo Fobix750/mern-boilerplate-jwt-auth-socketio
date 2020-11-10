@@ -1,10 +1,10 @@
-require("dotenv").config();
+require('dotenv').config();
 
 module.exports = {
-  isDev: process.env.NODE_ENV !== "production",
+  isDev: process.env.NODE_ENV !== 'production',
   database: {
-    url: "mongodb://localhost/boilerplate",
-    devURL: "mongodb://localhost:27017/boilerplate"
+    url: 'mongodb://localhost/boilerplate',
+    devURL: 'mongodb://localhost:27017/boilerplate'
   },
   webserver: {
     port: 80,
@@ -18,9 +18,9 @@ module.exports = {
   },
   cors: {
     whitelist: [
-      "http://localhost:3000",
-      "http://localhost:8090",
-      "http://localhost:8000"
+      'http://localhost:3000',
+      'http://localhost:8090',
+      'http://localhost:8000'
     ]
   }
 };

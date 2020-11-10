@@ -1,7 +1,7 @@
-const jwt = require("jsonwebtoken");
-const User = require("mongoose").model("User");
+const jwt = require('jsonwebtoken');
+const User = require('mongoose').model('User');
 
-const config = require("../config/config");
+const config = require('../config/config');
 
 const secretOrKey = config.auth.jwtSecret;
 
@@ -24,7 +24,7 @@ const socketAuth = async (socket, next) => {
         } = user;
         next();
       } else {
-        console.log("User not found");
+        console.log('User not found');
         next();
       }
     } catch (errUser) {

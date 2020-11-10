@@ -1,15 +1,15 @@
-const fs = require("fs");
-const path = require("path");
-const config = require("../config/config");
-const JwtStrategy = require("passport-jwt").Strategy;
-const ExtractJwt = require("passport-jwt").ExtractJwt;
-const User = require("mongoose").model("User");
+const fs = require('fs');
+const path = require('path');
+const config = require('../config/config');
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
+const User = require('mongoose').model('User');
 
 const secretOrKey = config.auth.jwtSecret;
 
 const strategy = new JwtStrategy(
   {
-    jwtFromRequest: ExtractJwt.fromHeader("authorization"),
+    jwtFromRequest: ExtractJwt.fromHeader('authorization'),
     secretOrKey
   },
   async (payload, done) => {
@@ -22,7 +22,7 @@ const strategy = new JwtStrategy(
           ({ _id, username, email, role, createdAt, updatedAt } = user)
         );
       } else {
-        console.log("User not found");
+        console.log('User not found');
         done(null, false);
       }
     } catch (err) {

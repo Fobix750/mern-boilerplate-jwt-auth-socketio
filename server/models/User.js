@@ -1,10 +1,10 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
-const config = require("../config/config");
+const config = require('../config/config');
 
-// Define Schemas
+// Define Schema
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -22,25 +22,28 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     required: true,
-    default: "user"
+    default: 'user'
   }
 });
 
-userSchema.methods.registerUser = (newUser, cb) => {
-  bcrypt.genSalt(10, function (err, salt) {
-    bcrypt.hash(newUser.password, salt, (errh, hash) => {
-      if (err) console.log(err);
-      newUser.password = hash;
-      newUser.save(cb);
-    });
-  });
+userSchema.methods.registerUser = async (newUser, cb) => {
+  try {
+    const salt = await bcrypt.genSalt(10);
+    newUser.password = await bcrypt.hash(newUser.password, salt);
+    newUser.save(cb);
+  } catch (err) {
+    throw err;
+  }
 };
 
 userSchema.methods.comparePasswords = async function (pwToCompare, cb) {
-  bcrypt.compare(pwToCompare, this.password, (err, match) => {
-    if (err) return cb(err);
+  try {
+    const match = await bcrypt.compare(pwToCompare, this.password);
+    if (!match) return cb('Wrong password entered by: ' + this.username);
     cb(null, match);
-  });
+  } catch (err) {
+    cb(err);
+  }
 };
 
 const secretOrKey = config.auth.jwtSecret;
@@ -52,7 +55,7 @@ userSchema.methods.generateJWT = function () {
 };
 
 const User = mongoose.model(
-  "User",
+  'User',
   new mongoose.Schema(userSchema, { timestamps: true })
 );
 
