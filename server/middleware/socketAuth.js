@@ -1,9 +1,9 @@
 const jwt = require("jsonwebtoken");
 const User = require("mongoose").model("User");
 
-const mode = process.env.NODE_ENV || "production";
-const secretOrKey =
-  mode === "production" ? process.env.JWT_KEY_PROD : process.env.JWT_KEY_DEV;
+const config = require("../config/config");
+
+const secretOrKey = config.auth.jwtSecret;
 
 const socketAuth = async (socket, next) => {
   const token = socket.handshake.query.token;

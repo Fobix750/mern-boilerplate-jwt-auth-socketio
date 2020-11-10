@@ -5,9 +5,7 @@ const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const User = require("mongoose").model("User");
 
-const mode = process.env.NODE_ENV || "production";
-const secretOrKey =
-  mode === "production" ? process.env.JWT_KEY_PROD : process.env.JWT_KEY_DEV;
+const secretOrKey = config.auth.jwtSecret;
 
 const strategy = new JwtStrategy(
   {

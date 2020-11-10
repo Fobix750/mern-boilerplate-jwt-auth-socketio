@@ -12,10 +12,8 @@ const { readFileSync } = require("fs");
 const app = express();
 
 // Config
-require("dotenv").config();
 const config = require("./config/config");
-const isDev = process.env.NODE_ENV !== "production";
-const secretOrKey = isDev ? process.env.JWT_KEY_DEV : process.env.JWT_KEY_PROD;
+const isDev = config.isDev;
 const whitelist = config.cors.whitelist;
 
 // Connect Mongoose Database & register Schemas
@@ -59,7 +57,7 @@ if (!isDev) {
 }
 
 //Start Web Server
-const port = isDev ? config.webserver.port_dev : config.webserver.port;
+const port = isDev ? config.webserver.portDev : config.webserver.port;
 app.listen(port, () => {
   console.log(`Web Server started @:${port} as HTTPS`);
 });

@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+const config = require("../config/config");
+
 // Define Schemas
 const userSchema = new mongoose.Schema({
   username: {
@@ -41,9 +43,7 @@ userSchema.methods.comparePasswords = async function (pwToCompare, cb) {
   });
 };
 
-const mode = process.env.NODE_ENV || "production";
-const secretOrKey =
-  mode === "production" ? process.env.JWT_KEY_PROD : process.env.JWT_KEY_DEV;
+const secretOrKey = config.auth.jwtSecret;
 
 userSchema.methods.generateJWT = function () {
   return jwt.sign({ id: this._id, email: this.email }, secretOrKey, {

@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
-const config = require('./config');
-const mode = process.env.NODE_ENV || 'production';
+const mongoose = require("mongoose");
+const config = require("./config");
+const isDev = config.isDev;
 
 const connect = async () => {
   try {
     await mongoose.connect(
-      mode === 'production' ? config.database.url : config.database.dev_url,
+      isDev ? config.database.devURL : config.database.url,
       {
         useNewUrlParser: true,
         useCreateIndex: true,
@@ -13,9 +13,9 @@ const connect = async () => {
       }
     );
 
-    console.log('Successfully established MongoDB connection.');
+    console.log("Successfully established MongoDB connection.");
   } catch (err) {
-    console.error('MongoDB error:' + err.message);
+    console.error("MongoDB error:" + err.message);
     process.exit(1);
   }
 };

@@ -1,3 +1,4 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Disallow:
+Host: https://web-site.com/
+Sitemap: https://web-site.com/sitemap.xml
